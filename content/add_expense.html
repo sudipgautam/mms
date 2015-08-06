@@ -1,0 +1,61 @@
+
+<link rel="stylesheet" href="css/pure-min.css">
+
+<form class="pure-form pure-form-stacked">
+    <fieldset>
+          <legend>Add Expense</legend>
+          <label for="expense_title"> Expense Title:</label>
+          <input type="text" placeholder="Expense Title" id="expense_title" required="title required">
+          <label for="datepicker"> Date:</label>
+          <input type="date" id="datepicker" data-provide="datepicker" required="">
+          <label for="split_amount"> Amount:</label>
+            <input type="text" placeholder="Amount" id="amount_title" required="">
+          </label>
+          <label for="split_unequal" class="pure-checkbox">
+              <input id="split_unequal" type="checkbox"> Split unequally
+            </label>
+            </fieldset>
+
+            <label for="split_with">Split with:</label>
+            <input type="text" value="" id="split_friend" />
+            <input type="button" value="Add more friend" onClick="add_split_friend();">
+
+            <div id="add_split_friend_list"></div>
+
+            <button class="pure-button" >
+              <i class="fa fa-plus fa-sm"></i>
+              Add
+            </button>
+
+</form>
+
+<script>
+console.log('inside add_expense.html');
+
+var splitList = [];
+
+function add_split_friend () {
+    var split_friend = document.getElementById('split_friend').value;
+    var already_exists = splitList.indexOf(split_friend);
+    console.log(already_exists);
+    if (already_exists <0 ){
+      splitList.push(split_friend);
+      for (i = 0; i < splitList.length; i++)	{
+          var newFriend = "<a href='#' onClick='removeRecord(" + i + ");'>X</a> " + splitList[i] + " <br>";
+        };
+        document.getElementById('add_split_friend_list').innerHTML += newFriend;
+      }
+}
+
+
+function removeRecord (i) {
+    splitList.splice(i, 1);
+    var newFriend = "";
+    // re-display the records from foodList the same way we did it in addToFood()
+    for (var i = 0; i < splitList.length; i++) {
+        newFriend += "<a href='#' onClick='removeRecord(" + i + ");'>X</a> " + splitList[i] + " <br>";
+    };
+    document.getElementById('add_split_friend_list').innerHTML = newFriend;
+}
+
+</script>
